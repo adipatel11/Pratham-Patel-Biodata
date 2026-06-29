@@ -248,6 +248,73 @@
           font-size: 32px;
         }
       }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm;
+        }
+
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        body {
+          background: #fff;
+        }
+
+        .page {
+          margin: 0;
+          max-width: 100%;
+          box-shadow: none;
+          border-radius: 0;
+        }
+
+        .header {
+          padding: 0 0 16px;
+        }
+
+        .title {
+          font-size: 34px;
+        }
+
+        .content {
+          grid-template-columns: 1.15fr 1fr;
+          padding: 18px 0 0;
+          gap: 24px;
+        }
+
+        .profile-card,
+        .photo,
+        .photo-grid {
+          order: 0;
+        }
+
+        .photo-grid img {
+          box-shadow: none;
+          transform: none;
+        }
+
+        .about {
+          margin-top: 8px;
+        }
+
+        .section,
+        .about,
+        .photo,
+        .photo-grid img {
+          break-inside: avoid;
+        }
+
+        .footer {
+          display: none;
+        }
+
+        .zoom-overlay {
+          display: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -290,10 +357,10 @@
           </div>
 
           <div class="about">
-            I come from a close-knit nuclear family and strongly value respect,
-            honesty, and family bonds. I am calm, practical, and grounded, with
-            a balanced outlook toward traditional and modern values. I believe
-            in continuous self-growth while maintaining a positive approach to
+            I come from a close-knit family and strongly value respect, honesty,
+            and family bonds. I am calm, practical, and grounded, with a
+            balanced outlook toward traditional and modern values. I believe in
+            continuous self-growth while maintaining a positive approach to
             life.
           </div>
         </div>
