@@ -7,17 +7,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --ink: #2a2a2a;
-        --muted: #6d6d6d;
+        --ink: #2b2620;
+        --muted: #7c7367;
         --accent: #b38a2c;
-        --paper: #f7f3ea;
-        --card: #ffffff;
-        --rule: #e3d9c6;
+        --accent-deep: #8a6a1f;
+        --gold-soft: #d9b65a;
+        --paper: #f6f0e4;
+        --card: #fffdf8;
+        --rule: #e7dcc6;
+        --shadow: rgba(58, 46, 26, 0.16);
       }
 
       * {
@@ -28,70 +31,274 @@
         margin: 0;
         font-family: "Source Sans 3", sans-serif;
         color: var(--ink);
-        background: radial-gradient(
-          circle at top,
-          #fbf8f1,
-          #f1e9da 60%,
-          #eee3cf
-        );
+        background:
+          radial-gradient(
+            circle at 50% -10%,
+            #fffaf0,
+            rgba(255, 250, 240, 0) 55%
+          ),
+          radial-gradient(circle at top, #fbf8f1, #f1e9da 60%, #e9ddc6);
+        background-attachment: fixed;
+        padding: 1px;
       }
 
       .page {
-        max-width: 980px;
-        margin: 40px auto;
+        position: relative;
+        max-width: 920px;
+        margin: 48px auto;
         background: var(--card);
-        border-radius: 14px;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-        overflow: visible;
+        border-radius: 18px;
+        box-shadow:
+          0 24px 60px var(--shadow),
+          0 2px 6px rgba(58, 46, 26, 0.06);
+        overflow: hidden;
+        animation: rise 0.7s ease both;
+      }
+
+      /* slim gilt ribbon across the very top of the card */
+      .page::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--gold-soft),
+          var(--accent),
+          var(--accent-deep),
+          var(--accent),
+          var(--gold-soft)
+        );
+        z-index: 3;
+      }
+
+      /* inset hairline frame, like an engraved certificate border */
+      .page::after {
+        content: "";
+        position: absolute;
+        inset: 13px;
+        border: 1px solid rgba(179, 138, 44, 0.35);
+        border-radius: 11px;
+        pointer-events: none;
+        z-index: 2;
       }
 
       .header {
-        padding: 32px 36px 24px;
+        position: relative;
+        text-align: center;
+        padding: 40px 36px 26px;
+        background: linear-gradient(180deg, #fff9ec, #fffdf8);
         border-bottom: 1px solid var(--rule);
-        background: linear-gradient(135deg, #fff9ee, #fff);
       }
 
-      .header small {
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin: 0 0 14px;
         text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--muted);
-        font-size: 12px;
+        letter-spacing: 0.42em;
+        color: var(--accent-deep);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent));
+      }
+
+      .eyebrow::after {
+        background: linear-gradient(90deg, var(--accent), transparent);
       }
 
       .title {
-        margin: 8px 0 0;
+        margin: 0;
         font-family: "Playfair Display", serif;
-        font-size: 40px;
+        font-size: clamp(36px, 6vw, 54px);
         font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: 0.01em;
       }
 
       .subtitle {
-        margin: 6px 0 0;
+        margin: 10px 0 0;
         color: var(--muted);
         font-size: 16px;
+        letter-spacing: 0.08em;
+      }
+
+      /* ornamental divider with a centred diamond */
+      .divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin: 20px auto 0;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        width: 70px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent));
+      }
+
+      .divider::after {
+        background: linear-gradient(90deg, var(--accent), transparent);
+      }
+
+      .divider span {
+        width: 9px;
+        height: 9px;
+        background: var(--accent);
+        transform: rotate(45deg);
+        box-shadow: 0 0 0 4px rgba(179, 138, 44, 0.14);
       }
 
       .content {
+        position: relative;
+        z-index: 1;
         display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 24px;
-        padding: 32px 36px 40px;
-        overflow: visible;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 34px;
+        padding: 34px 40px 30px;
       }
 
       .profile-card {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 26px;
+      }
+
+      .section h3 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 14px;
+        font-size: 13px;
+        color: var(--accent-deep);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .section h3::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        flex: 0 0 auto;
+        background: var(--accent);
+        transform: rotate(45deg);
+      }
+
+      .section h3::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, var(--rule), transparent);
+      }
+
+      .detail-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 11px;
+      }
+
+      .detail-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .ic {
+        flex: 0 0 auto;
+        width: 17px;
+        height: 17px;
+        margin-top: 2px;
+        color: var(--accent);
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .detail-list .lbl {
+        color: var(--muted);
+      }
+
+      .detail-list .lbl::after {
+        content: ":\00a0";
+      }
+
+      .detail-list .val {
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      .detail-list a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(179, 138, 44, 0.35);
+        transition: border-color 0.2s ease;
+      }
+
+      .detail-list a:hover {
+        border-color: var(--accent);
+      }
+
+      .about {
+        position: relative;
+        background: var(--paper);
+        border-radius: 12px;
+        border-left: 3px solid var(--accent);
+        padding: 22px 26px 22px 30px;
+        margin: 2px 0 0;
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 15.5px;
+        line-height: 1.75;
+        color: #4a4239;
+      }
+
+      .about::before {
+        content: "\201C";
+        position: absolute;
+        top: 2px;
+        left: 14px;
+        font-family: "Playfair Display", serif;
+        font-size: 46px;
+        line-height: 1;
+        color: rgba(179, 138, 44, 0.32);
+      }
+
+      .media {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
       }
 
       .photo {
+        position: relative;
         width: 100%;
         aspect-ratio: 3 / 4;
-        background: linear-gradient(160deg, #f1e6cf, #e6d2ad);
-        border-radius: 12px;
+        border-radius: 14px;
         overflow: hidden;
-        position: relative;
+        background: linear-gradient(160deg, #f1e6cf, #e6d2ad);
+        box-shadow:
+          0 16px 36px rgba(58, 46, 26, 0.22),
+          0 0 0 1px rgba(179, 138, 44, 0.4);
       }
 
       .photo img {
@@ -101,39 +308,60 @@
         display: block;
       }
 
+      /* thin gold inner frame on the portrait */
+      .photo::after {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border: 1px solid rgba(255, 250, 240, 0.55);
+        border-radius: 9px;
+        pointer-events: none;
+      }
+
       .photo-label {
         position: absolute;
-        inset: auto 14px 14px auto;
-        background: rgba(255, 255, 255, 0.85);
-        padding: 6px 10px;
+        inset: auto 12px 12px 12px;
+        text-align: center;
+        background: rgba(255, 253, 248, 0.88);
+        backdrop-filter: blur(3px);
+        padding: 7px 14px;
         border-radius: 999px;
-        font-size: 12px;
-        color: var(--muted);
+        font-family: "Playfair Display", serif;
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        color: var(--accent-deep);
+        box-shadow: 0 4px 12px rgba(58, 46, 26, 0.12);
       }
 
       .photo-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-        overflow: visible;
+        gap: 12px;
       }
 
       .photo-grid img {
         width: 100%;
-        border-radius: 10px;
-        object-fit: contain;
-        background: #f6efe1;
         aspect-ratio: 4 / 5;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        object-fit: cover;
+        border-radius: 10px;
+        background: #f6efe1;
+        padding: 4px;
+        box-shadow:
+          0 8px 18px rgba(58, 46, 26, 0.16),
+          0 0 0 1px rgba(179, 138, 44, 0.3);
+        cursor: zoom-in;
         transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease;
-        transform-origin: center center;
+          transform 0.28s ease,
+          box-shadow 0.28s ease;
       }
 
-      .photo-grid img:hover {
-        transform: scale(1.06);
-        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.2);
+      .photo-grid img:hover,
+      .photo-grid img:focus-visible {
+        transform: translateY(-3px) scale(1.04);
+        box-shadow:
+          0 16px 28px rgba(58, 46, 26, 0.24),
+          0 0 0 1px var(--accent);
+        outline: none;
       }
 
       .zoom-overlay {
@@ -142,7 +370,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(28, 22, 12, 0.55);
+        background: rgba(28, 22, 12, 0.6);
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease;
@@ -151,12 +379,13 @@
       }
 
       .zoom-overlay img {
-        width: min(82vw, 560px);
+        width: min(82vw, 540px);
         max-height: 82vh;
         object-fit: contain;
         border-radius: 14px;
         background: #f6efe1;
-        box-shadow: 0 26px 60px rgba(0, 0, 0, 0.4);
+        padding: 6px;
+        box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
       }
 
       .zoom-overlay.show {
@@ -164,140 +393,160 @@
         visibility: visible;
       }
 
-      .section {
-        margin-bottom: 18px;
-      }
-
-      .section h3 {
-        margin: 0 0 8px;
-        font-size: 15px;
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-      }
-
-      .detail-list {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 6px;
-        color: var(--ink);
-      }
-
-      .detail-list li {
-        font-size: 15px;
-      }
-
-      .detail-list span {
-        color: var(--muted);
-      }
-
-      .about {
-        background: var(--paper);
-        border-radius: 12px;
-        padding: 22px 24px;
-        margin-top: 12px;
-        font-size: 15px;
-        line-height: 1.7;
-        color: var(--ink);
-      }
-
       .footer {
-        padding: 18px 36px 28px;
-        border-top: 1px solid var(--rule);
+        position: relative;
+        z-index: 1;
+        padding: 8px 36px 30px;
+        text-align: center;
+      }
+
+      .footer .divider {
+        margin-bottom: 14px;
+      }
+
+      .footer span {
         color: var(--muted);
         font-size: 12px;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
       }
 
-      @media (max-width: 900px) {
+      /* gentle staggered entrance */
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+      }
+
+      .header,
+      .section,
+      .about,
+      .media {
+        animation: rise 0.7s ease both;
+      }
+
+      .header {
+        animation-delay: 0.05s;
+      }
+      .profile-card .section:nth-child(1) {
+        animation-delay: 0.18s;
+      }
+      .profile-card .section:nth-child(2) {
+        animation-delay: 0.28s;
+      }
+      .about {
+        animation-delay: 0.36s;
+      }
+      .media {
+        animation-delay: 0.22s;
+      }
+
+      @media (max-width: 880px) {
+        .page {
+          margin: 24px auto;
+        }
+
         .content {
           grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .media {
+          order: -1;
         }
 
         .photo {
-          order: 1;
-        }
-
-        .profile-card {
-          order: 2;
+          max-width: 360px;
+          margin: 0 auto;
         }
 
         .photo-grid {
-          order: 3;
+          max-width: 420px;
+          margin: 0 auto;
         }
       }
 
       @media (max-width: 600px) {
         .page {
-          margin: 16px;
+          margin: 14px;
+          border-radius: 14px;
         }
 
-        .header,
-        .content,
+        .header {
+          padding: 32px 22px 22px;
+        }
+
+        .content {
+          padding: 26px 22px 22px;
+        }
+
         .footer {
-          padding-left: 20px;
-          padding-right: 20px;
+          padding: 6px 22px 26px;
         }
+      }
 
-        .title {
-          font-size: 32px;
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
         }
       }
 
       @media print {
         @page {
           size: A4;
-          margin: 12mm;
+          margin: 11mm;
         }
 
         * {
+          animation: none !important;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
 
         body {
           background: #fff;
+          padding: 0;
         }
 
         .page {
           margin: 0;
           max-width: 100%;
-          box-shadow: none;
           border-radius: 0;
+          box-shadow: none;
+        }
+
+        .page::after {
+          inset: 6px;
         }
 
         .header {
-          padding: 0 0 16px;
-        }
-
-        .title {
-          font-size: 34px;
+          padding: 14px 8px 16px;
+          background: linear-gradient(180deg, #fff9ec, #fffdf8);
         }
 
         .content {
-          grid-template-columns: 1.15fr 1fr;
-          padding: 18px 0 0;
-          gap: 24px;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 28px;
+          padding: 22px 18px 12px;
         }
 
-        .profile-card,
-        .photo,
-        .photo-grid {
+        .media {
           order: 0;
         }
 
-        .photo-grid img {
-          box-shadow: none;
-          transform: none;
+        .photo,
+        .photo-grid {
+          max-width: none;
+          margin: 0;
         }
 
-        .about {
-          margin-top: 8px;
+        .photo {
+          box-shadow: 0 0 0 1px rgba(179, 138, 44, 0.45);
+        }
+
+        .photo-grid img {
+          box-shadow: 0 0 0 1px rgba(179, 138, 44, 0.3);
         }
 
         .section,
@@ -308,7 +557,7 @@
         }
 
         .footer {
-          display: none;
+          padding: 4px 18px 8px;
         }
 
         .zoom-overlay {
@@ -318,11 +567,50 @@
     </style>
   </head>
   <body>
+    <!-- icon sprite -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-cal" viewBox="0 0 24 24">
+        <rect x="3" y="4.5" width="18" height="16" rx="2" />
+        <path d="M3 9h18M8 2.5v4M16 2.5v4" />
+      </symbol>
+      <symbol id="i-ruler" viewBox="0 0 24 24">
+        <path d="M3 8h18v8H3zM7 8v3.5M11 8v4.5M15 8v3.5" />
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </symbol>
+      <symbol id="i-home" viewBox="0 0 24 24">
+        <path d="M4 11l8-6.5 8 6.5" />
+        <path d="M6.5 9.5V19h11V9.5" />
+      </symbol>
+      <symbol id="i-cap" viewBox="0 0 24 24">
+        <path d="M12 4 2 9l10 5 10-5-10-5z" />
+        <path d="M6 11v4c0 1 2.7 2.6 6 2.6s6-1.6 6-2.6v-4M21 9.5V15" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" />
+      </symbol>
+      <symbol id="i-work" viewBox="0 0 24 24">
+        <rect x="3" y="7.5" width="18" height="12" rx="2" />
+        <path d="M8 7.5V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5M3 12.5h18" />
+      </symbol>
+      <symbol id="i-store" viewBox="0 0 24 24">
+        <path d="M4.5 9.5h15V20h-15z" />
+        <path d="M4 9.5 5.5 5h13L20 9.5M10 20v-5h4v5" />
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24">
+        <path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 7a4 4 0 0 1 7 3.5C19 15.6 12 20 12 20z" />
+      </symbol>
+    </svg>
+
     <main class="page">
       <header class="header">
-        <small>Biodata</small>
+        <p class="eyebrow">Biodata</p>
         <h1 class="title">Pratham Patel</h1>
-        <p class="subtitle">Student and Future Entrepreneur</p>
+        <p class="subtitle">Student &amp; Future Entrepreneur</p>
+        <div class="divider"><span></span></div>
       </header>
 
       <section class="content">
@@ -330,13 +618,35 @@
           <div class="section">
             <h3>Personal Details</h3>
             <ul class="detail-list">
-              <li><span>Date of Birth:</span> 08/20/2004</li>
-              <li><span>Height:</span> 5'7"</li>
-              <li><span>Residence:</span> Illinois, USA</li>
-              <li><span>Paternal Native Place:</span> Bhandu, Gujarat</li>
-              <li><span>Maternal Native Place:</span> Manud, Gujarat</li>
               <li>
-                <span>Education:</span> B.Sc in Business Administration (U.S.A)
+                <svg class="ic"><use href="#i-cal" /></svg>
+                <span class="lbl">Date of Birth</span>
+                <span class="val">08/20/2004</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-ruler" /></svg>
+                <span class="lbl">Height</span>
+                <span class="val">5'7"</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-pin" /></svg>
+                <span class="lbl">Residence</span>
+                <span class="val">Illinois, USA</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-home" /></svg>
+                <span class="lbl">Paternal Native Place</span>
+                <span class="val">Bhandu, Gujarat</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-home" /></svg>
+                <span class="lbl">Maternal Native Place</span>
+                <span class="val">Manud, Gujarat</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-cap" /></svg>
+                <span class="lbl">Education</span>
+                <span class="val">B.Sc in Business Administration (U.S.A)</span>
               </li>
             </ul>
           </div>
@@ -345,67 +655,111 @@
             <h3>Family</h3>
             <ul class="detail-list">
               <li>
-                <span>Father:</span> Bhagirath Amrathbhai Patel - 9328050770
+                <svg class="ic"><use href="#i-user" /></svg>
+                <span class="lbl">Father</span>
+                <span class="val"
+                  >Bhagirath Amrathbhai Patel &mdash;
+                  <a href="tel:9328050770">9328050770</a></span
+                >
               </li>
-              <li><span>Father's Occupation:</span> Business</li>
-              <li><span>Business:</span> Pratham Travels (Ahmedabad)</li>
-              <li><span>Mother:</span> Kamina Bhagirath Patel - 9724499888</li>
-              <li><span>Mother's Occupation:</span> Housewife</li>
-              <li><span>Sister:</span> Kavisha Patel</li>
-              <li><span>Parents' Residence:</span> Ahmedabad</li>
+              <li>
+                <svg class="ic"><use href="#i-work" /></svg>
+                <span class="lbl">Father's Occupation</span>
+                <span class="val">Business</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-store" /></svg>
+                <span class="lbl">Business</span>
+                <span class="val">Pratham Travels (Ahmedabad)</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-user" /></svg>
+                <span class="lbl">Mother</span>
+                <span class="val"
+                  >Kamina Bhagirath Patel &mdash;
+                  <a href="tel:9724499888">9724499888</a></span
+                >
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-work" /></svg>
+                <span class="lbl">Mother's Occupation</span>
+                <span class="val">Housewife</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-user" /></svg>
+                <span class="lbl">Sister</span>
+                <span class="val">Kavisha Patel</span>
+              </li>
+              <li>
+                <svg class="ic"><use href="#i-home" /></svg>
+                <span class="lbl">Parents' Residence</span>
+                <span class="val">Ahmedabad</span>
+              </li>
             </ul>
           </div>
 
-          <div class="about">
+          <blockquote class="about">
             I come from a close-knit family and strongly value respect, honesty,
-            and family bonds. I am calm, practical, and grounded, with a
-            balanced outlook toward traditional and modern values. I believe in
-            continuous self-growth while maintaining a positive approach to
-            life.
-          </div>
+            and family bonds. I am calm, practical, and grounded, with a balanced
+            outlook toward traditional and modern values. I believe in continuous
+            self-growth while maintaining a positive approach to life.
+          </blockquote>
         </div>
 
-        <div class="photo">
-          <img src="img/pic1.png" alt="Portrait of Pratham Patel" />
-          <div class="photo-label">Pratham Patel</div>
-        </div>
-        <div class="photo-grid">
-          <img src="img/pic2.png" alt="Pratham Patel portrait 2" tabindex="0" />
-          <img src="img/pic3.png" alt="Pratham Patel portrait 3" tabindex="0" />
-          <img src="img/pic4.png" alt="Pratham Patel portrait 4" tabindex="0" />
-        </div>
+        <aside class="media">
+          <figure class="photo">
+            <img src="img/pic1.png" alt="Portrait of Pratham Patel" />
+            <figcaption class="photo-label">Pratham Patel</figcaption>
+          </figure>
+          <div class="photo-grid">
+            <img
+              src="img/pic2.png"
+              alt="Pratham Patel portrait 2"
+              tabindex="0"
+            />
+            <img
+              src="img/pic3.png"
+              alt="Pratham Patel portrait 3"
+              tabindex="0"
+            />
+            <img
+              src="img/pic4.png"
+              alt="Pratham Patel portrait 4"
+              tabindex="0"
+            />
+          </div>
+        </aside>
       </section>
 
       <footer class="footer">
-        <span>Pratham Patel Biodata</span>
+        <div class="divider"><span></span></div>
+        <span>Pratham Patel &middot; Biodata</span>
       </footer>
     </main>
+
     <div class="zoom-overlay" id="zoomOverlay" aria-hidden="true">
       <img src="" alt="Enlarged portrait" />
     </div>
+
     <script>
       const zoomOverlay = document.getElementById("zoomOverlay");
       const zoomImage = zoomOverlay.querySelector("img");
 
+      const showZoom = (src) => {
+        zoomImage.src = src;
+        zoomOverlay.classList.add("show");
+      };
+      const hideZoom = () => zoomOverlay.classList.remove("show");
+
       document.querySelectorAll(".photo-grid img").forEach((img) => {
-        img.addEventListener("mouseenter", () => {
-          zoomImage.src = img.src;
-          zoomOverlay.classList.add("show");
-        });
-
-        img.addEventListener("mouseleave", () => {
-          zoomOverlay.classList.remove("show");
-        });
-
-        img.addEventListener("focus", () => {
-          zoomImage.src = img.src;
-          zoomOverlay.classList.add("show");
-        });
-
-        img.addEventListener("blur", () => {
-          zoomOverlay.classList.remove("show");
-        });
+        img.addEventListener("mouseenter", () => showZoom(img.src));
+        img.addEventListener("mouseleave", hideZoom);
+        img.addEventListener("focus", () => showZoom(img.src));
+        img.addEventListener("blur", hideZoom);
+        img.addEventListener("click", () => showZoom(img.src));
       });
+
+      zoomOverlay.addEventListener("click", hideZoom);
     </script>
   </body>
 </html>
