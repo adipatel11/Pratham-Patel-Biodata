@@ -1,0 +1,5 @@
+# Generated PDF export
+*.pdf
+
+# macOS
+.DS_Store
