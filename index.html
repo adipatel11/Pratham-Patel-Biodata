@@ -4,6 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pratham Patel | Biodata</title>
+    <meta
+      name="description"
+      content="Marriage biodata of Pratham Patel — personal details, family background, and photographs."
+    />
+    <meta name="theme-color" content="#b38a2c" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fffdf8'/%3E%3Crect x='22' y='22' width='20' height='20' fill='%23b38a2c' transform='rotate(45 32 32)'/%3E%3C/svg%3E"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -87,8 +96,53 @@
         position: relative;
         text-align: center;
         padding: 40px 36px 26px;
-        background: linear-gradient(180deg, #fff9ec, #fffdf8);
+        background:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Crect x='11.5' y='11.5' width='5' height='5' fill='none' stroke='%23b38a2c' stroke-opacity='0.09' transform='rotate(45 14 14)'/%3E%3C/svg%3E"),
+          linear-gradient(180deg, #fff9ec, #fffdf8);
         border-bottom: 1px solid var(--rule);
+      }
+
+      /* bracket corners layered just outside the hairline frame */
+      .corner {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--accent);
+        opacity: 0.45;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .corner.tl {
+        top: 8px;
+        left: 8px;
+        border-right: none;
+        border-bottom: none;
+        border-top-left-radius: 14px;
+      }
+
+      .corner.tr {
+        top: 8px;
+        right: 8px;
+        border-left: none;
+        border-bottom: none;
+        border-top-right-radius: 14px;
+      }
+
+      .corner.bl {
+        bottom: 8px;
+        left: 8px;
+        border-right: none;
+        border-top: none;
+        border-bottom-left-radius: 14px;
+      }
+
+      .corner.br {
+        bottom: 8px;
+        right: 8px;
+        border-left: none;
+        border-top: none;
+        border-bottom-right-radius: 14px;
       }
 
       .eyebrow {
@@ -210,23 +264,39 @@
         padding: 0;
         list-style: none;
         display: grid;
-        gap: 11px;
+        gap: 13px;
       }
 
       .detail-list li {
         display: flex;
         align-items: flex-start;
-        gap: 11px;
+        gap: 12px;
         font-size: 15px;
         line-height: 1.45;
+        padding: 3px 8px;
+        margin: -3px -8px;
+        border-radius: 9px;
+        transition: background 0.2s ease;
+      }
+
+      .detail-list li:hover {
+        background: rgba(179, 138, 44, 0.07);
       }
 
       .ic {
         flex: 0 0 auto;
-        width: 17px;
-        height: 17px;
-        margin-top: 2px;
-        color: var(--accent);
+        width: 28px;
+        height: 28px;
+        padding: 6px;
+        margin-top: -3px;
+        color: var(--accent-deep);
+        background: linear-gradient(
+          160deg,
+          rgba(217, 182, 90, 0.22),
+          rgba(179, 138, 44, 0.1)
+        );
+        border: 1px solid rgba(179, 138, 44, 0.28);
+        border-radius: 50%;
         stroke: currentColor;
         fill: none;
         stroke-width: 1.6;
@@ -256,10 +326,12 @@
 
       .detail-list a:hover {
         border-color: var(--accent);
+        color: var(--accent-deep);
       }
 
       .about {
         position: relative;
+        grid-column: 1 / -1;
         background: var(--paper);
         border-radius: 12px;
         border-left: 3px solid var(--accent);
@@ -306,6 +378,12 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        cursor: zoom-in;
+      }
+
+      .photo img:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: -6px;
       }
 
       /* thin gold inner frame on the portrait */
@@ -320,7 +398,12 @@
 
       .photo-label {
         position: absolute;
-        inset: auto 12px 12px 12px;
+        inset: auto;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: calc(100% - 24px);
         text-align: center;
         background: rgba(255, 253, 248, 0.88);
         backdrop-filter: blur(3px);
@@ -370,12 +453,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(28, 22, 12, 0.6);
+        background: rgba(28, 22, 12, 0.62);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease;
         pointer-events: none;
         z-index: 40;
+        cursor: zoom-out;
       }
 
       .zoom-overlay img {
@@ -386,11 +472,90 @@
         background: #f6efe1;
         padding: 6px;
         box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+        transform: scale(0.94);
+        transition: transform 0.25s ease;
       }
 
       .zoom-overlay.show {
         opacity: 1;
         visibility: visible;
+        pointer-events: auto;
+      }
+
+      .zoom-overlay.show img {
+        transform: scale(1);
+      }
+
+      .zoom-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 250, 240, 0.4);
+        border-radius: 50%;
+        background: rgba(28, 22, 12, 0.4);
+        color: #f6efe1;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .zoom-close:hover {
+        background: rgba(28, 22, 12, 0.65);
+      }
+
+      .print-btn {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 18px;
+        border: 1px solid rgba(179, 138, 44, 0.5);
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.92);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        color: var(--accent-deep);
+        font-family: "Source Sans 3", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        box-shadow: 0 10px 24px rgba(58, 46, 26, 0.18);
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+        z-index: 30;
+      }
+
+      .print-btn:hover {
+        transform: translateY(-2px);
+        background: #fffdf8;
+        box-shadow: 0 14px 30px rgba(58, 46, 26, 0.24);
+      }
+
+      .print-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .print-btn svg {
+        width: 15px;
+        height: 15px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .footer {
@@ -560,7 +725,9 @@
           padding: 4px 18px 8px;
         }
 
-        .zoom-overlay {
+        .zoom-overlay,
+        .print-btn,
+        .corner {
           display: none !important;
         }
       }
@@ -603,9 +770,18 @@
       <symbol id="i-heart" viewBox="0 0 24 24">
         <path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 7a4 4 0 0 1 7 3.5C19 15.6 12 20 12 20z" />
       </symbol>
+      <symbol id="i-print" viewBox="0 0 24 24">
+        <path d="M7 8V3.5h10V8" />
+        <rect x="4" y="8" width="16" height="8" rx="2" />
+        <path d="M7 13.5h10V21H7z" />
+      </symbol>
     </svg>
 
     <main class="page">
+      <span class="corner tl"></span>
+      <span class="corner tr"></span>
+      <span class="corner bl"></span>
+      <span class="corner br"></span>
       <header class="header">
         <p class="eyebrow">Biodata</p>
         <h1 class="title">Pratham Patel</h1>
@@ -621,12 +797,15 @@
               <li>
                 <svg class="ic"><use href="#i-cal" /></svg>
                 <span class="lbl">Date of Birth</span>
-                <span class="val">08/20/2004</span>
+                <span class="val"
+                  ><time datetime="2004-08-20" id="dob">August 20, 2004</time
+                  ><span id="age"></span
+                ></span>
               </li>
               <li>
                 <svg class="ic"><use href="#i-ruler" /></svg>
                 <span class="lbl">Height</span>
-                <span class="val">5'7"</span>
+                <span class="val">5'7" (170 cm)</span>
               </li>
               <li>
                 <svg class="ic"><use href="#i-pin" /></svg>
@@ -646,7 +825,9 @@
               <li>
                 <svg class="ic"><use href="#i-cap" /></svg>
                 <span class="lbl">Education</span>
-                <span class="val">B.Sc in Business Administration (U.S.A)</span>
+                <span class="val"
+                  >B.Sc. in Business Administration (U.S.A.)</span
+                >
               </li>
             </ul>
           </div>
@@ -659,7 +840,7 @@
                 <span class="lbl">Father</span>
                 <span class="val"
                   >Bhagirath Amrathbhai Patel &mdash;
-                  <a href="tel:9328050770">9328050770</a></span
+                  <a href="tel:+919328050770">+91 93280 50770</a></span
                 >
               </li>
               <li>
@@ -677,7 +858,7 @@
                 <span class="lbl">Mother</span>
                 <span class="val"
                   >Kamina Bhagirath Patel &mdash;
-                  <a href="tel:9724499888">9724499888</a></span
+                  <a href="tel:+919724499888">+91 97244 99888</a></span
                 >
               </li>
               <li>
@@ -698,37 +879,52 @@
             </ul>
           </div>
 
-          <blockquote class="about">
-            I come from a close-knit family and strongly value respect, honesty,
-            and family bonds. I am calm, practical, and grounded, with a balanced
-            outlook toward traditional and modern values. I believe in continuous
-            self-growth while maintaining a positive approach to life.
-          </blockquote>
         </div>
 
         <aside class="media">
           <figure class="photo">
-            <img src="img/pic1.png" alt="Portrait of Pratham Patel" />
+            <img
+              src="img/pic1.jpg"
+              alt="Portrait of Pratham Patel"
+              tabindex="0"
+              role="button"
+            />
             <figcaption class="photo-label">Pratham Patel</figcaption>
           </figure>
           <div class="photo-grid">
             <img
-              src="img/pic2.png"
+              src="img/pic2.jpg"
               alt="Pratham Patel portrait 2"
+              loading="lazy"
+              decoding="async"
               tabindex="0"
+              role="button"
             />
             <img
-              src="img/pic3.png"
+              src="img/pic3.jpg"
               alt="Pratham Patel portrait 3"
+              loading="lazy"
+              decoding="async"
               tabindex="0"
+              role="button"
             />
             <img
-              src="img/pic4.png"
+              src="img/pic4.jpg"
               alt="Pratham Patel portrait 4"
+              loading="lazy"
+              decoding="async"
               tabindex="0"
+              role="button"
             />
           </div>
         </aside>
+
+        <blockquote class="about">
+          I come from a close-knit family and strongly value respect, honesty,
+          and family bonds. I am calm, practical, and grounded, with a balanced
+          outlook toward traditional and modern values. I believe in continuous
+          self-growth while maintaining a positive approach to life.
+        </blockquote>
       </section>
 
       <footer class="footer">
@@ -737,29 +933,62 @@
       </footer>
     </main>
 
+    <button class="print-btn" type="button" onclick="window.print()">
+      <svg aria-hidden="true"><use href="#i-print" /></svg>
+      Print / Save PDF
+    </button>
+
     <div class="zoom-overlay" id="zoomOverlay" aria-hidden="true">
-      <img src="" alt="Enlarged portrait" />
+      <button class="zoom-close" type="button" aria-label="Close enlarged photo">
+        &times;
+      </button>
+      <img alt="Enlarged portrait of Pratham Patel" />
     </div>
 
     <script>
+      // Age, computed so it never goes stale
+      const dob = new Date(document.getElementById("dob").dateTime);
+      const now = new Date();
+      let years = now.getFullYear() - dob.getFullYear();
+      if (
+        now.getMonth() < dob.getMonth() ||
+        (now.getMonth() === dob.getMonth() && now.getDate() < dob.getDate())
+      ) {
+        years -= 1;
+      }
+      document.getElementById("age").textContent = ` (${years} years)`;
+
+      // Lightbox: click / Enter / Space opens; click anywhere or Escape closes
       const zoomOverlay = document.getElementById("zoomOverlay");
       const zoomImage = zoomOverlay.querySelector("img");
 
-      const showZoom = (src) => {
-        zoomImage.src = src;
+      const showZoom = (img) => {
+        zoomImage.src = img.src;
+        zoomImage.alt = img.alt;
         zoomOverlay.classList.add("show");
+        zoomOverlay.setAttribute("aria-hidden", "false");
       };
-      const hideZoom = () => zoomOverlay.classList.remove("show");
+      const hideZoom = () => {
+        zoomOverlay.classList.remove("show");
+        zoomOverlay.setAttribute("aria-hidden", "true");
+      };
 
-      document.querySelectorAll(".photo-grid img").forEach((img) => {
-        img.addEventListener("mouseenter", () => showZoom(img.src));
-        img.addEventListener("mouseleave", hideZoom);
-        img.addEventListener("focus", () => showZoom(img.src));
-        img.addEventListener("blur", hideZoom);
-        img.addEventListener("click", () => showZoom(img.src));
-      });
+      document
+        .querySelectorAll(".photo-grid img, .photo img")
+        .forEach((img) => {
+          img.addEventListener("click", () => showZoom(img));
+          img.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              showZoom(img);
+            }
+          });
+        });
 
       zoomOverlay.addEventListener("click", hideZoom);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") hideZoom();
+      });
     </script>
   </body>
 </html>
