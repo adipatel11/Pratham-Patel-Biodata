@@ -509,55 +509,6 @@
         background: rgba(28, 22, 12, 0.65);
       }
 
-      .print-btn {
-        position: fixed;
-        bottom: 18px;
-        right: 18px;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 11px 18px;
-        border: 1px solid rgba(179, 138, 44, 0.5);
-        border-radius: 999px;
-        background: rgba(255, 253, 248, 0.92);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        color: var(--accent-deep);
-        font-family: "Source Sans 3", sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        box-shadow: 0 10px 24px rgba(58, 46, 26, 0.18);
-        cursor: pointer;
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          background 0.2s ease;
-        z-index: 30;
-      }
-
-      .print-btn:hover {
-        transform: translateY(-2px);
-        background: #fffdf8;
-        box-shadow: 0 14px 30px rgba(58, 46, 26, 0.24);
-      }
-
-      .print-btn:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-      }
-
-      .print-btn svg {
-        width: 15px;
-        height: 15px;
-        stroke: currentColor;
-        fill: none;
-        stroke-width: 1.6;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
       .footer {
         position: relative;
         z-index: 1;
@@ -660,7 +611,7 @@
       @media print {
         @page {
           size: A4;
-          margin: 11mm;
+          margin: 9mm;
         }
 
         * {
@@ -686,14 +637,36 @@
         }
 
         .header {
-          padding: 14px 8px 16px;
+          padding: 8px 8px 10px;
           background: linear-gradient(180deg, #fff9ec, #fffdf8);
+        }
+
+        .header .divider {
+          margin-top: 12px;
+        }
+
+        .title {
+          font-size: 40px;
         }
 
         .content {
           grid-template-columns: 1.1fr 0.9fr;
-          gap: 28px;
-          padding: 22px 18px 12px;
+          gap: 18px 26px;
+          padding: 16px 18px 8px;
+        }
+
+        .profile-card {
+          gap: 18px;
+        }
+
+        .detail-list {
+          gap: 9px;
+        }
+
+        .about {
+          font-size: 14px;
+          line-height: 1.6;
+          padding: 14px 20px 14px 28px;
         }
 
         .media {
@@ -722,11 +695,14 @@
         }
 
         .footer {
-          padding: 4px 18px 8px;
+          padding: 2px 18px 6px;
+        }
+
+        .footer .divider {
+          margin-bottom: 8px;
         }
 
         .zoom-overlay,
-        .print-btn,
         .corner {
           display: none !important;
         }
@@ -769,11 +745,6 @@
       </symbol>
       <symbol id="i-heart" viewBox="0 0 24 24">
         <path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 7a4 4 0 0 1 7 3.5C19 15.6 12 20 12 20z" />
-      </symbol>
-      <symbol id="i-print" viewBox="0 0 24 24">
-        <path d="M7 8V3.5h10V8" />
-        <rect x="4" y="8" width="16" height="8" rx="2" />
-        <path d="M7 13.5h10V21H7z" />
       </symbol>
     </svg>
 
@@ -932,11 +903,6 @@
         <span>Pratham Patel &middot; Biodata</span>
       </footer>
     </main>
-
-    <button class="print-btn" type="button" onclick="window.print()">
-      <svg aria-hidden="true"><use href="#i-print" /></svg>
-      Print / Save PDF
-    </button>
 
     <div class="zoom-overlay" id="zoomOverlay" aria-hidden="true">
       <button class="zoom-close" type="button" aria-label="Close enlarged photo">
