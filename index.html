@@ -305,7 +305,9 @@
       }
 
       .detail-list .lbl {
+        flex: 0 0 auto;
         color: var(--muted);
+        white-space: nowrap;
       }
 
       .detail-list .lbl::after {
@@ -313,12 +315,15 @@
       }
 
       .detail-list .val {
+        flex: 1 1 auto;
+        min-width: 0;
         color: var(--ink);
         font-weight: 500;
       }
 
       .detail-list a {
         color: inherit;
+        white-space: nowrap;
         text-decoration: none;
         border-bottom: 1px solid rgba(179, 138, 44, 0.35);
         transition: border-color 0.2s ease;
@@ -637,36 +642,41 @@
         }
 
         .header {
-          padding: 8px 8px 10px;
+          padding: 22px 8px 18px;
           background: linear-gradient(180deg, #fff9ec, #fffdf8);
         }
 
         .header .divider {
-          margin-top: 12px;
+          margin-top: 18px;
         }
 
         .title {
-          font-size: 40px;
+          font-size: 46px;
         }
 
         .content {
-          grid-template-columns: 1.1fr 0.9fr;
-          gap: 18px 26px;
-          padding: 16px 18px 8px;
+          grid-template-columns: 1.3fr 0.85fr;
+          gap: 26px 30px;
+          padding: 26px 24px 14px;
         }
 
         .profile-card {
-          gap: 18px;
+          gap: 26px;
         }
 
         .detail-list {
-          gap: 9px;
+          gap: 15px;
+        }
+
+        .detail-list li {
+          font-size: 14px;
+          line-height: 1.55;
         }
 
         .about {
-          font-size: 14px;
-          line-height: 1.6;
-          padding: 14px 20px 14px 28px;
+          font-size: 15px;
+          line-height: 1.7;
+          padding: 20px 24px 20px 30px;
         }
 
         .media {
@@ -695,11 +705,11 @@
         }
 
         .footer {
-          padding: 2px 18px 6px;
+          padding: 8px 18px 16px;
         }
 
         .footer .divider {
-          margin-bottom: 8px;
+          margin-bottom: 12px;
         }
 
         .zoom-overlay,
